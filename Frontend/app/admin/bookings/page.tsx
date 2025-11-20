@@ -1,8 +1,32 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Trash, Trash2 } from 'lucide-react';
+
+
+import { Trash2 } from 'lucide-react';
+
+
+export  function GlobalError({ error, reset }: any) {
+  useEffect(() => {
+    console.error(error);
+    toast.error('Something went wrong');
+  }, [error]);
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold">Oops! An error occurred.</h1>
+      <button
+        onClick={() => reset()}
+        className="mt-4 px-4 py-2 bg-teal-500 text-white rounded"
+      >
+        Try again
+      </button>
+    </div>
+  );
+}
 
 const API_BASE = 'http://localhost:4000';
 const HERO_IMAGE =
