@@ -101,10 +101,10 @@ export default function Gallery() {
       <div className="container mx-auto px-6 lg:px-20 py-12">
         {/* Title */}
         <div className="mb-8 text-center">
-          <h2 className="text-4xl font-extrabold text-rose-700 drop-shadow-md">
+          <h2 className="text-4xl font-extrabold text-teal-500 drop-shadow-md">
             Resort Gallery
           </h2>
-          <p className="text-sm text-rose-900/70 mt-2">
+          <p className="text-sm text-teal-700/70 mt-2">
             Browse rooms, amenities and our beautiful grounds
           </p>
         </div>
