@@ -7,8 +7,7 @@ import toast from 'react-hot-toast';
 
 import { Trash2 } from 'lucide-react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
-console.log('API_BASE:', API_BASE);
+
 const HERO_IMAGE =
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80';
 
@@ -45,7 +44,7 @@ export default function AdminBookingsPage() {
   const loadBookings = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/bookings`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`);
       const data = await res.json();
       setBookings(data);
     } catch (err) {
@@ -153,7 +152,7 @@ export default function AdminBookingsPage() {
     if (!ok) return;
     setDeletingId(id);
     try {
-      const res = await fetch(`${API_BASE}/bookings/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('delete failed');
