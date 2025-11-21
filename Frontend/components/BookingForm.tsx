@@ -132,7 +132,7 @@ export default function BookingForm() {
       }}
     >
       <div className="flex justify-center px-6">
-        <div className="backdrop-blur-xl bg-white/20 shadow-xl border border-white/30 p-10 rounded-3xl max-w-3xl w-full">
+        <div className="backdrop-blur-xl bg-white/20 shadow-xl border border-white/30 p-4 lg:p-10 rounded-3xl max-w-3xl w-full">
           <h2 className="text-4xl font-bold text-[#2f2f2f] mb-8 text-center drop-shadow">
             Book Your Stay
           </h2>
