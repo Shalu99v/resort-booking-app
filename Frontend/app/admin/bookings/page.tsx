@@ -5,28 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
-
 import { Trash2 } from 'lucide-react';
-
-
-export  function GlobalError({ error, reset }: any) {
-  useEffect(() => {
-    console.error(error);
-    toast.error('Something went wrong');
-  }, [error]);
-
-  return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold">Oops! An error occurred.</h1>
-      <button
-        onClick={() => reset()}
-        className="mt-4 px-4 py-2 bg-teal-500 text-white rounded"
-      >
-        Try again
-      </button>
-    </div>
-  );
-}
 
 const API_BASE = 'http://localhost:4000';
 const HERO_IMAGE =
@@ -118,18 +97,33 @@ export default function AdminBookingsPage() {
     }
 
     // Sort
-    list.sort((a: any, b: any) => {
-      const aVal = a[sortBy] ?? '';
-      const bVal = b[sortBy] ?? '';
-      if (sortBy === 'guests') {
-        return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
-      }
-      const av = new Date(aVal).getTime() || String(aVal).toLowerCase();
-      const bv = new Date(bVal).getTime() || String(bVal).toLowerCase();
-      if (av < bv) return sortDir === 'asc' ? -1 : 1;
-      if (av > bv) return sortDir === 'asc' ? 1 : -1;
-      return 0;
-    });
+   list.sort((a: Booking, b: Booking) => {
+  const aVal = a[sortBy as keyof Booking];
+  const bVal = b[sortBy as keyof Booking];
+
+  // guests → numeric
+  if (sortBy === "guests") {
+    return sortDir === "asc"
+      ? (aVal as number) - (bVal as number)
+      : (bVal as number) - (aVal as number);
+  }
+
+  // dates or strings
+  const aParsed =
+    typeof aVal === "string" && !isNaN(Date.parse(aVal))
+      ? Date.parse(aVal)
+      : String(aVal).toLowerCase();
+
+  const bParsed =
+    typeof bVal === "string" && !isNaN(Date.parse(bVal))
+      ? Date.parse(bVal)
+      : String(bVal).toLowerCase();
+
+  if (aParsed < bParsed) return sortDir === "asc" ? -1 : 1;
+  if (aParsed > bParsed) return sortDir === "asc" ? 1 : -1;
+  return 0;
+});
+
 
     return list;
   }, [
@@ -220,7 +214,7 @@ export default function AdminBookingsPage() {
               min={1}
               className="p-2 w-20 rounded bg-gray-800 text-white"
               placeholder="Min G"
-              value={minGuests as any}
+value={minGuests === '' ? '' : String(minGuests)}
               onChange={e =>
                 setMinGuests(
                   e.target.value === '' ? '' : Number(e.target.value)
@@ -232,7 +226,7 @@ export default function AdminBookingsPage() {
               min={1}
               className="p-2 w-20 rounded bg-gray-800 text-white"
               placeholder="Max G"
-              value={maxGuests as any}
+              value={maxGuests === '' ? '' : String(maxGuests)}
               onChange={e =>
                 setMaxGuests(
                   e.target.value === '' ? '' : Number(e.target.value)
