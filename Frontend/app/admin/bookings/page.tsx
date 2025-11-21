@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 import { Trash2 } from 'lucide-react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = `${process.env.NEXT_PUBLIC_API_URL}`;
 const HERO_IMAGE =
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80';
 
